@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbots</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://i.ebayimg.com/images/g/n8IAAOSwltRkNCSF/s-l1200.png');
+            background-size: cover;
+            background-position: center;
+        }
+        header {
+            background: #007bff;
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #007bff;
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #chatbot-header {
+            background: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #chatbot-messages {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        #chatbot-input {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+        #chatbot-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+        #chatbot-input button {
+            padding: 10px;
+            background: #007bff;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Benefits of Using Chatbots</h1>
+</header>
+
+<section>
+    <h2>1. 24/7 Availability</h2>
+    <p>Chatbots can provide support and information to users at any time, day or night, ensuring that help is always available.</p>
+</section>
+
+<section>
+    <h2>2. Cost Efficiency</h2>
+    <p>By automating customer service and other repetitive tasks, businesses can reduce operational costs and free up human agents for more complex inquiries.</p>
+</section>
+
+<section>
+    <h2>3. Quick Response Times</h2>
+    <p>Chatbots can respond to user queries instantly, significantly reducing wait times and enhancing the overall user experience.</p>
+</section>
+
+<section>
+    <h2>4. Improved Customer Engagement</h2>
+    <p>Chatbots can engage users through personalized interactions, guiding them to the information or products they need, which increases satisfaction and retention.</p>
+</section>
+
+<section>
+    <h2>5. Data Collection and Insights</h2>
+    <p>Chatbots can gather valuable data about user preferences and behaviors, helping businesses make informed decisions and improve their services.</p>
+</section>
+
+<header>
+    <h1>Chatbot</h1>
+</header>
+
+<section>
+    <h2>This Is a Chatbot Made By Us</h2>
+    <p>This Text to Speech Chatbot Can Tell you stories, essays, and answer some questions. It can calculate any math problem.</p>
+</section>
+
+<footer>
+    <p>&copy; 2024 Chatbot By Ayub and Abdullah</p>
+</footer>
+
+<!-- Chatbot HTML -->
+<div id="chatbot">
+    <div id="chatbot-header" onclick="toggleChatbot()">Chat with us!</div>
+    <div id="chatbot-messages"></div>
+    <div id="chatbot-input">
+        <input type="text" id="user-input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    // Chatbot toggle
+    function toggleChatbot() {
+        var chatbot = document.getElementById("chatbot");
+        chatbot.classList.toggle("closed");
+    }
+
+    // Sample chatbot response logic with text-to-speech
+    function sendMessage() {
+        var userMessage = document.getElementById("user-input").value;
+        if (!userMessage) return;
+
+        displayMessage("User", userMessage);
+        document.getElementById("user-input").value = "";
+
+        var botResponse = getBotResponse(userMessage);
+        setTimeout(() => {
+            displayMessage("Bot", botResponse);
+            speakText(botResponse); // Trigger TTS for bot response
+        }, 1000);
+    }
+
+    // Display a message
+    function displayMessage(sender, message) {
+        var messagesDiv = document.getElementById("chatbot-messages");
+        var messageDiv = document.createElement("div");
+        messageDiv.textContent = sender + ": " + message;
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // Basic bot response function
+    function getBotResponse(message) {
+        message = message.toLowerCase();
+        if (message.includes("hello") || message.includes("hi")) return "Hi there! How can I assist you today?";
+        if (message.includes("calculate")) return "I can help with basic calculations. Just type the problem!";
+        if (message.includes("story")) return "Once upon a time, in a land far away...";
+        if (message.includes("joke")) return "Why did the scarecrow win an award? Because he was outstanding in his field! 😄";
+        if (message.includes("what can you do")) return "I can tell stories, essays and jokes. And I'll try my best to assist you!";
+        return "I'm here to help! Please ask a question.";
+    }
+
+    // Text-to-speech function
+    function speakText(text) {
+        var speech = new SpeechSynthesisUtterance(text);
+        speech.lang = "en-US";
+        speech.pitch = 1;
+        speech.rate = 1;
+        window.speechSynthesis.speak(speech);
+    }
+</script>
+
+</body>
+</html>
